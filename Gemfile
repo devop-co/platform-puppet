@@ -1,9 +1,12 @@
+bundler_version=File.read('.bundler-version').chomp
+if Gem::Version.new(Bundler::VERSION) < Gem::Version.new(bundler_version)
+  puts "Upgrading Bundler"
+  puts `gem install bundler -v '~> #{bundler_version}'`
+  abort "Bundler version #{bundler_version} upgraded, please bundle run again"
+end
+
 source 'http://rubygems.org'
 
-if Gem::Version.new(Bundler::VERSION) < Gem::Version.new('1.12.3')
-  # abort "Bundler version >= 1.3.5 is required"
-  `gem install bundler -v '~> 1.12.3'`
-end
 gem 'puppet'
 gem 'librarian-puppet'
 gem 'hiera-eyaml'
